@@ -32,7 +32,7 @@ class ContactController extends Controller
     public function home(Request $request)
     {
         $request = Helper::getPayloadRequest();
-        dd($request);
+        // dd($request);
         return view('welcome', compact('request'));
     }
 
