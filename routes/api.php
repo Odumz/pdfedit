@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-// Route::middleware(['auth:api'])->group(function () { 
+// Route::middleware(['auth:api'])->group(function () {
     Route::get('/user', function (Request $request) {
         return $request->user();
     });
@@ -26,5 +26,5 @@ use Illuminate\Support\Facades\Route;
     Route::delete('/v1/cars/{id}', 'TicketStatusController@deleteTicketStatus');
     Route::get('/webhooks/contacts', 'ContactController@get');
     Route::get('/payload', 'ContactController@getPayload');
-    Route::get('/contacts', 'ContactController@getRecentContact');
+    Route::post('/contacts', 'ContactController@getRecentContact');
 // });
