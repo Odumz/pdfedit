@@ -33,8 +33,14 @@ class HomeController extends Controller
         return view('PDF');
     }
 
+    public function s3show()
+    {
+        return view('S3test');
+    }
+
     public function editPDF(Request $request)
     {
+        $pdfObj = $request->pdf;
         $fullName = $request->fullName;
         $duration = $request->duration;
         $startDate = $request->startDate;
@@ -186,18 +192,39 @@ class HomeController extends Controller
         // $pdf->SetXY(200,122);
         // $pdf->Cell(20, 10, date('y'), 1, 0, 'L');
 
+        // dd(gettype($pdf));
         // render PDF to browser
-        $pdf->Output("Cerebro_Business_SLA(Services).pdf", "I");
 
-        $newpdf = $pdf->Output("/var/www/html/pdf-edit/storage/app/SLA/Cerebro_Business_SLA(Services).pdf", "F");
+        $filename='Cerebro_Business_SLA(Services).pdf';
 
-        $s3pdf = $pdf->Output("pdf/Cerebro_Business_SLA(Services).pdf", "F");
+        $pdf->Output($filename, "I");
+
+        $newpdf = $pdf->Output("/var/www/html/pdf-edit/storage/app/SLA/".$filename, "F");
+
+        // $path = $request->file($pdfObj)->store('cerebro-sla/pdf', 's3');
+
+        $s3pdf = $pdf->Output($filename, "S");
+
+        // $path = $request->file($s3pdf)->store('pdf', 's3');
 
         // Storage::disk('local')->put('SLA/Business_SLA(Services).pdf', $newpdf);
 
-        Storage::disk('s3')->put('pdf/', $s3pdf);
+        Storage::disk('s3')->put('pdf/'.$filename, $s3pdf);
 
         // return view('NewPDF')->with('pdf',json_decode($pdf));
         return view('NewPDF', compact('pdf'));
+    }
+
+    public function s3upload(Request $request)
+    {
+        // $pdfObj = $request->pdf;
+        // dd(env('AWS_DEFAULT_REGION'));
+        // dd(config('filesystems.disks.s3'));
+
+        $path = $request->file('pdf')->store('pdf', 's3');
+        if($path){
+            return back()->with('upload_success','file uploaded successfully');
+        }
+
     }
 }

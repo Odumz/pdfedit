@@ -26,5 +26,9 @@ use Illuminate\Support\Facades\Route;
 
     Route::post('/pdfedit', 'HomeController@editPDF')->name('editPDF');
 
+    Route::post('/s3-upload', 'HomeController@s3upload')->name('s3test');
+
     Route::get('/pdf', 'HomeController@pdf')->name('pdf');
+
+    Route::get('/s3-show', 'HomeController@s3show')->name('pdf');
 // });
