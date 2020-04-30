@@ -57,11 +57,11 @@ return [
 
         's3' => [
             'driver' => 's3',
-            'key' => env('AWS_ACCESS_KEY_ID'),
-            'secret' => env('AWS_SECRET_ACCESS_KEY'),
-            'region' => env('AWS_DEFAULT_REGION'),
-            'bucket' => env('AWS_BUCKET'),
-            'endpoint' => env('AWS_URL'),
+            'key' => env('AKIAJ436BYCSY3A2QJHQ'),
+            'secret' => env('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'),
+            'region' => env('eu-west-1'),
+            'bucket' => env('cerebro-sla'),
+            'endpoint' => env('http://cerebro-sla.s3-website-eu-west-1.amazonaws.com'),
         ],
 
     ],
