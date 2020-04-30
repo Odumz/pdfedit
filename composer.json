@@ -17,6 +17,7 @@
         "laravel/passport": "^8.4",
         "laravel/tinker": "^2.0",
         "laravel/ui": "^2.0",
+        "league/flysystem-aws-s3-v3": "^1.0",
         "setasign/fpdf": "^1.8",
         "setasign/fpdi-fpdf": "^2.3"
     },
