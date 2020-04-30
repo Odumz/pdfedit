@@ -191,7 +191,7 @@ class HomeController extends Controller
 
         $newpdf = $pdf->Output("/var/www/html/pdf-edit/storage/app/SLA/Cerebro_Business_SLA(Services).pdf", "F");
 
-        $s3pdf = $pdf->Output("Cerebro_Business_SLA(Services).pdf", "F");
+        $s3pdf = $pdf->Output("pdf/Cerebro_Business_SLA(Services).pdf", "F");
 
         // Storage::disk('local')->put('SLA/Business_SLA(Services).pdf', $newpdf);
 
