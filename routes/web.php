@@ -23,4 +23,8 @@ use Illuminate\Support\Facades\Route;
     Auth::routes();
 
     Route::get('/home', 'HomeController@index')->name('home');
+
+    Route::post('/pdfedit', 'HomeController@editPDF')->name('editPDF');
+
+    Route::get('/pdf', 'HomeController@pdf')->name('pdf');
 // });
