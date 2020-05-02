@@ -40,15 +40,39 @@ class HomeController extends Controller
 
     public function editPDF(Request $request)
     {
-        $pdfObj = $request->pdf;
         $fullName = $request->fullName;
         $duration = $request->duration;
         $startDate = $request->startDate;
+        $scope = $request->scope;
+        $binding = $request->binding;
+        $durationFrom = $request->durationFrom;
+        $durationTo = $request->durationTo;
+        $cost = $request->cost;
+        $per = $request->per;
+        $total = $request->total;
+        $paymentDue = $request->paymentDue;
+        $paymentTo = $request->paymentTo;
+        $availabilityTime = $request->availabilityTime;
+        $approvalDate = $request->approvalDate;
+        $clientName = $request->clientName;
 
         $info = [
             'fullName' => $fullName,
             'duration' => $duration,
             'startDate' => $startDate,
+            'scope' => $scope,
+            'binding' => $binding,
+            'durationFrom' => $durationFrom,
+            'durationTo' => $durationTo,
+            'cost' => $cost,
+            'per' => $per,
+            'total' => $total,
+            'paymentDue' => $paymentDue,
+            'paymentTo' => $paymentTo,
+            'availabilityTime' => $availabilityTime,
+            'approvalDate' => $approvalDate,
+            'clientName' => $clientName,
+
         ];
 
         // dd($info);
@@ -74,17 +98,20 @@ class HomeController extends Controller
 
         // First box - the user's Name
         $pdf->SetFontSize('14'); // set font size
+        $pdf->SetTextColor(96,96,96);
         $pdf->SetXY(65, 163); // set the position of the box
         $pdf->Cell(150, 5, $fullName, 0, 2, 'C'); // add the text, align to Center of cell
 
         // add the reason for certificate
         // note the reduction in font and different box position
         $pdf->SetFontSize('12');
+        $pdf->SetTextColor(96,96,96);
         $pdf->SetXY(76, 172);
         $pdf->Cell(150, 10, $duration, 0, 0, 'C');
 
         // the day
         $pdf->SetFontSize('12');
+        $pdf->SetTextColor(96,96,96);
         $pdf->SetXY(33,177);
         $pdf->Cell(5, 10, $startDate, 0, 0, 'L');
 
@@ -99,53 +126,49 @@ class HomeController extends Controller
         $pdf->SetFontSize('12');
         $pdf->SetTextColor(96,96,96);
         $pdf->SetXY(40, 78);
-        $pdf->Cell(10, 5, 'service', 0, 0, 'C');
+        $pdf->Cell(10, 5, $scope, 0, 0, 'C');
 
         $pdf->SetFontSize('12');
         $pdf->SetTextColor(96,96,96);
         $pdf->SetXY(112, 78);
-        $pdf->Cell(10, 5, 'extend', 0, 0, 'C');
+        $pdf->Cell(10, 5, $binding, 0, 0, 'C');
 
         $pdf->SetFontSize('12');
         $pdf->SetTextColor(96,96,96);
         $pdf->SetXY(163,84);
-        $pdf->Cell(5, 5, date('d'), 0, 0, 'L');
-        $pdf->Cell(5, 5, date('M'), 0, 0, 'L');
-        $pdf->Cell(9, 5, date('y'), 0, 0, 'R');
+        $pdf->Cell(5, 5, $durationFrom, 0, 0, 'L');
 
         $pdf->SetFontSize('12');
         $pdf->SetTextColor(96,96,96);
         $pdf->SetXY(43,90);
-        $pdf->Cell(5, 5, date('d'), 0, 0, 'L');
-        $pdf->Cell(5, 5, date('M'), 0, 0, 'L');
-        $pdf->Cell(9, 5, date('y'), 0, 0, 'R');
+        $pdf->Cell(5, 5, $durationTo, 0, 0, 'L');
 
 
         $pdf->SetFontSize('12');
         $pdf->SetTextColor(96,96,96);
         $pdf->SetXY(90,112);
-        $pdf->Cell(5, 5, '5000', 0, 0, 'L');
+        $pdf->Cell(5, 5, $cost, 0, 0, 'L');
 
 
         $pdf->SetFontSize('12');
         $pdf->SetTextColor(96,96,96);
         $pdf->SetXY(132,112);
-        $pdf->Cell(5, 5, 'day', 0, 0, 'L');
+        $pdf->Cell(5, 5, $per, 0, 0, 'L');
 
         $pdf->SetFontSize('12');
         $pdf->SetTextColor(96,96,96);
         $pdf->SetXY(166,112);
-        $pdf->Cell(5, 5, '50,000', 0, 0, 'L');
+        $pdf->Cell(5, 5, $total, 0, 0, 'L');
 
         $pdf->SetFontSize('12');
         $pdf->SetTextColor(96,96,96);
         $pdf->SetXY(154,171);
-        $pdf->Cell(5, 5, '30,000', 0, 0, 'L');
+        $pdf->Cell(5, 5, $paymentDue, 0, 0, 'L');
 
         $pdf->SetFontSize('12');
         $pdf->SetTextColor(96,96,96);
         $pdf->SetXY(56,182);
-        $pdf->Cell(5, 5, 'xyz', 0, 0, 'L');
+        $pdf->Cell(5, 5, $paymentTo, 0, 0, 'L');
 
         //PAGE THREE
 
@@ -157,7 +180,7 @@ class HomeController extends Controller
         $pdf->SetFontSize('12');
         $pdf->SetTextColor(96,96,96);
         $pdf->SetXY(37,86);
-        $pdf->Cell(5, 5, '5', 0, 0, 'L');
+        $pdf->Cell(5, 5, $availabilityTime, 0, 0, 'L');
 
 
 
@@ -171,16 +194,12 @@ class HomeController extends Controller
         $pdf->SetFontSize('12');
         $pdf->SetTextColor(96,96,96);
         $pdf->SetXY(148,105);
-        $pdf->Cell(5, 5, date('d'), 0, 0, 'L');
-        $pdf->Cell(5, 5, date('M'), 0, 0, 'L');
-        $pdf->Cell(9, 5, date('y'), 0, 0, 'R');
+        $pdf->Cell(5, 5, $approvalDate, 0, 0, 'L');
 
         $pdf->SetFontSize('12');
         $pdf->SetTextColor(96,96,96);
         $pdf->SetXY(148,118);
-        $pdf->Cell(5, 5, date('d'), 0, 0, 'L');
-        $pdf->Cell(5, 5, date('M'), 0, 0, 'L');
-        $pdf->Cell(9, 5, date('y'), 0, 0, 'R');
+        $pdf->Cell(5, 5, $approvalDate, 0, 0, 'L');
         // $pdf->Cell(5, 10, date('M'), 0, 0, 'L');
         // $pdf->Cell(9, 10, date('y'), 0, 0, 'R');
 
@@ -195,7 +214,7 @@ class HomeController extends Controller
         // dd(gettype($pdf));
         // render PDF to browser
 
-        $filename='Cerebro_Business_SLA(Services).pdf';
+        $filename=$clientName.'_Cerebro_Business_SLA(Services).pdf';
 
         $pdf->Output($filename, "I");
 

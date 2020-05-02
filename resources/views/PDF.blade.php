@@ -103,15 +103,63 @@
                                 <div class="card-body">
                                     <div class="form-group">
                                         <label class="form-label">Name</label>
-                                        <input class="form-control" name="fullName" id="fullName" placeholder="Enter a job title"/>
+                                        <input class="form-control" name="fullName" id="fullName" placeholder="Enter a job title" required/>
                                     </div>
                                     <div class="form-group">
                                         <label class="form-label">Duration</label>
-                                        <textarea class="form-control" name="duration" rows="7" placeholder="Enter the necessary description"></textarea>
+                                        <input class="form-control" name="duration" placeholder="Enter the necessary description" required/>
                                     </div>
                                     <div class="form-group">
                                         <label class="form-label">Start Date</label>
-                                        <textarea class="form-control" name="startDate" id="startDate" placeholder="Enter the responsibilities"></textarea>
+                                        <input class="form-control" name="startDate" id="startDate" placeholder="Enter the responsibilities" required/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Scope</label>
+                                        <input class="form-control" name="scope" id="scope" placeholder="Enter a job title" required/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Binding</label>
+                                        <input class="form-control" name="binding" placeholder="Enter the necessary description" required/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Duration from</label>
+                                        <input class="form-control" name="durationFrom" id="durationFrom" placeholder="Enter the responsibilities" required/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Duration to</label>
+                                        <input class="form-control" name="durationTo" id="durationTo" placeholder="Enter a job title" required/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Cost</label>
+                                        <input class="form-control" name="cost" placeholder="Enter the necessary description" required/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Per</label>
+                                        <input class="form-control" name="per" id="per" placeholder="Enter the responsibilities" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Total</label>
+                                        <input class="form-control" name="total" id="total" placeholder="Enter a job title" required/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Payment Due:</label>
+                                        <input class="form-control" name="paymentDue" placeholder="Enter the necessary description" required/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Payment to:</label>
+                                        <input class="form-control" name="paymentTo" id="paymentTo" placeholder="Enter the responsibilities" required/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Availability Time</label>
+                                        <input class="form-control" name="availabilityTime" id="availabilityTime" placeholder="Enter a job title" required/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Approval Date</label>
+                                        <input type="date" class="form-control" name="approvalDate" placeholder="Enter the necessary description" required/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Client Name</label>
+                                        <input class="form-control" name="clientName" placeholder="Enter the necessary description" required/>
                                     </div>
                                 </div>
                             </div>
@@ -131,16 +179,6 @@
         </div>
 
                 <div class="links">
-                    {{-- <a href="https://laravel.com/docs">Docs</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://blog.laravel.com">Blog</a>
-                    <a href="https://nova.laravel.com">Nova</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://vapor.laravel.com">Vapor</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a> --}}
-
-                    <a href="/editPDF">Start</a>
 
                 </div>
             </div>
