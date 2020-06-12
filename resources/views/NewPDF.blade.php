@@ -87,7 +87,7 @@
                 {{$pdf}}
 
                 <div class="links">
-                    <a href="/editPDF">Start</a>
+                    <a href="/editBusinessSLA">Start</a>
                 </div>
             </div>
         </div>

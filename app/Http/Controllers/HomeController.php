@@ -36,182 +36,344 @@ class HomeController extends Controller
     public function s3show()
     {
         return view('S3test');
-    }
+    }   
+    
 
-    public function editPDF(Request $request)
+    public function editTalentSLA(Request $request)
     {
-        $fullName = $request->fullName;
-        $duration = $request->duration;
-        $startDate = $request->startDate;
-        $scope = $request->scope;
-        $binding = $request->binding;
-        $durationFrom = $request->durationFrom;
-        $durationTo = $request->durationTo;
-        $cost = $request->cost;
-        $per = $request->per;
-        $total = $request->total;
-        $paymentDue = $request->paymentDue;
-        $paymentTo = $request->paymentTo;
-        $availabilityTime = $request->availabilityTime;
-        $approvalDate = $request->approvalDate;
+        $talentName = $request->talentName;
         $clientName = $request->clientName;
+        $serviceName = $request->serviceName;
+        $description = $request->description;
+        $duration = $request->duration;
+        $dateOfCommencement = $request->dateOfCommencement;
+        $durationTo = $request->durationTo;
+        $amount = $request->amount;
+        $serviceProviderSignature = $request->serviceProviderSignature;
+        $serviceProviderDate = $request->serviceProviderDate;
+        $talentSignature = $request->talentSignature;
+        $talentDate = $request->talentDate;
+
 
         $info = [
-            'fullName' => $fullName,
-            'duration' => $duration,
-            'startDate' => $startDate,
-            'scope' => $scope,
-            'binding' => $binding,
-            'durationFrom' => $durationFrom,
-            'durationTo' => $durationTo,
-            'cost' => $cost,
-            'per' => $per,
-            'total' => $total,
-            'paymentDue' => $paymentDue,
-            'paymentTo' => $paymentTo,
-            'availabilityTime' => $availabilityTime,
-            'approvalDate' => $approvalDate,
+            'talentName' => $talentName,
             'clientName' => $clientName,
+            'serviceName' => $serviceName,
+            'description' => $description,
+            'duration' => $duration,
+            'dateOfCommencement' => $dateOfCommencement,
+            'amount' => $amount,
+            'serviceProviderSignature' => $serviceProviderSignature,
+            'serviceProviderDate' => $serviceProviderDate,
+            'talentSignature' => $talentSignature,
+            'talentDate' => $talentDate
+      
 
         ];
 
         // dd($info);
 
         // Create new Landscape PDF
-        $pdf = new Fpdi();
+        $pdf = new FPDI();
 
         // Reference the PDF you want to use (use relative path)
-        $pagecount = $pdf->setSourceFile( 'Business_SLA(Services).pdf' );
-
+        $pagecount = $pdf->setSourceFile( 'Cerebro_Talent_SLA.pdf' );
+        
         // Import the first page from the PDF and add to dynamic PDF
         $tpl = $pdf->importPage(1);
         $pdf->AddPage();
-
+        
         // Use the imported page as the template
         $pdf->useTemplate($tpl);
-
-        // Set the default font to use
+        
+        // // Set the default font to use
         $pdf->SetFont('Helvetica');
-
-        // adding a Cell using:
-        // $pdf->Cell( $width, $height, $text, $border, $fill, $align);
-
-        // First box - the user's Name
-        $pdf->SetFontSize('14'); // set font size
-        $pdf->SetTextColor(96,96,96);
-        $pdf->SetXY(65, 163); // set the position of the box
-        $pdf->Cell(150, 5, $fullName, 0, 2, 'C'); // add the text, align to Center of cell
-
-        // add the reason for certificate
-        // note the reduction in font and different box position
-        $pdf->SetFontSize('12');
-        $pdf->SetTextColor(96,96,96);
-        $pdf->SetXY(76, 172);
-        $pdf->Cell(150, 10, $duration, 0, 0, 'C');
-
-        // the day
-        $pdf->SetFontSize('12');
-        $pdf->SetTextColor(96,96,96);
-        $pdf->SetXY(33,177);
-        $pdf->Cell(5, 10, $startDate, 0, 0, 'L');
-
-        // PAGE TWO
-        // // note the reduction in font and different box position
-
+        
+        // // adding a Cell using:
+        // // $pdf->Cell( $width, $height, $text, $border, $fill, $align);
+        
+        // // PAGE ONE
+        
+        $pdf->SetFontSize('12'); // set font size
+        $pdf->SetTextColor(80,80,80);
+        $pdf->SetXY(19, 194); // set the position of the box
+        $pdf->Cell(15, 5, $talentName, 0, 0, 'L'); // add the text, align to Center of cell
+        
+        
+        $pdf->SetFontSize('12'); // set font size
+        $pdf->SetTextColor(80,80,80);
+        $pdf->SetXY(46, 211.5); // set the position of the box
+        $pdf->Cell(10, 5, $clientName, 0, 0, 'L'); // add the text, align to Center of cell
+        
+        $pdf->SetFontSize('12'); // set font size
+        $pdf->SetTextColor(80,80,80);
+        $pdf->SetXY(55, 261.5); // set the position of the box
+        $pdf->Cell(10, 5, $serviceName, 0, 0, 'L');// add the text, align to Center of cell
+        
+        // // PAGE TWO
+        // // // note the reduction in font and different box position
+        
         $tpl = $pdf->importPage(2);
         $pdf->AddPage();
         $pdf->useTemplate($tpl);
         $pdf->SetFont('Helvetica');
-
+        
         $pdf->SetFontSize('12');
-        $pdf->SetTextColor(96,96,96);
-        $pdf->SetXY(40, 78);
-        $pdf->Cell(10, 5, $scope, 0, 0, 'C');
-
+        $pdf->SetTextColor(80,80,80);
+        $pdf->SetXY(51, 27);
+        $pdf->Cell(5, 5, $description, 0,0, 'L');
+        
         $pdf->SetFontSize('12');
-        $pdf->SetTextColor(96,96,96);
-        $pdf->SetXY(112, 78);
-        $pdf->Cell(10, 5, $binding, 0, 0, 'C');
-
+        $pdf->SetTextColor(80,80,80);
+        $pdf->SetXY(46, 34.5);
+        $pdf->Cell(5, 5, $duration, 0, 0, 'L');
+        $pdf->Cell(5, 5, 'days ', 0, 0, 'L');
+        
         $pdf->SetFontSize('12');
-        $pdf->SetTextColor(96,96,96);
-        $pdf->SetXY(163,84);
-        $pdf->Cell(5, 5, $durationFrom, 0, 0, 'L');
-
+        $pdf->SetTextColor(80,80,80);
+        $pdf->SetXY(89, 42);
+        $pdf->Cell(5, 5, $dateOfCommencement, 0, 0, 'L');
+        
         $pdf->SetFontSize('12');
-        $pdf->SetTextColor(96,96,96);
-        $pdf->SetXY(43,90);
-        $pdf->Cell(5, 5, $durationTo, 0, 0, 'L');
-
-
-        $pdf->SetFontSize('12');
-        $pdf->SetTextColor(96,96,96);
-        $pdf->SetXY(90,112);
-        $pdf->Cell(5, 5, $cost, 0, 0, 'L');
-
-
-        $pdf->SetFontSize('12');
-        $pdf->SetTextColor(96,96,96);
-        $pdf->SetXY(132,112);
-        $pdf->Cell(5, 5, $per, 0, 0, 'L');
-
-        $pdf->SetFontSize('12');
-        $pdf->SetTextColor(96,96,96);
-        $pdf->SetXY(166,112);
-        $pdf->Cell(5, 5, $total, 0, 0, 'L');
-
-        $pdf->SetFontSize('12');
-        $pdf->SetTextColor(96,96,96);
-        $pdf->SetXY(154,171);
-        $pdf->Cell(5, 5, $paymentDue, 0, 0, 'L');
-
-        $pdf->SetFontSize('12');
-        $pdf->SetTextColor(96,96,96);
-        $pdf->SetXY(56,182);
-        $pdf->Cell(5, 5, $paymentTo, 0, 0, 'L');
-
-        //PAGE THREE
-
+        $pdf->SetTextColor(80,80,80);
+        $pdf->SetXY(67, 50);
+        $pdf->Cell(4, 5, 'N', 0, 0, 'L');
+        $pdf->Cell(5, 5, $amount, 0, 0, 'L');
+        
+        // $pdf->SetFontSize('12');
+        // $pdf->SetTextColor(80,80,80);
+        // $pdf->SetXY(62, 78);
+        // $pdf->Cell(5, 5, '6', 0, 0, 'L');
+        
+        // //PAGE THREE
+        
         $tpl = $pdf->importPage(3);
         $pdf->AddPage();
         $pdf->useTemplate($tpl);
         $pdf->SetFont('Helvetica');
-
-        $pdf->SetFontSize('12');
-        $pdf->SetTextColor(96,96,96);
-        $pdf->SetXY(37,86);
-        $pdf->Cell(5, 5, $availabilityTime, 0, 0, 'L');
-
-
-
-        //PAGE FOUR
-
+        
+        
+        // //PAGE FOUR
+        
         $tpl = $pdf->importPage(4);
         $pdf->AddPage();
         $pdf->useTemplate($tpl);
         $pdf->SetFont('Helvetica');
-
+        
+        // //Page 5
+        
+        $tpl = $pdf->importPage(5);
+        $pdf->AddPage();
+        $pdf->useTemplate($tpl);
+        $pdf->SetFont('Helvetica');
+        
+        
         $pdf->SetFontSize('12');
-        $pdf->SetTextColor(96,96,96);
-        $pdf->SetXY(148,105);
-        $pdf->Cell(5, 5, $approvalDate, 0, 0, 'L');
-
+        $pdf->SetTextColor(80,80,80);
+        $pdf->SetXY(88, 93);
+        $pdf->Cell(10, 5, $serviceProviderSignature, 0, 0, 'L');
+        
         $pdf->SetFontSize('12');
-        $pdf->SetTextColor(96,96,96);
-        $pdf->SetXY(148,118);
-        $pdf->Cell(5, 5, $approvalDate, 0, 0, 'L');
-        // $pdf->Cell(5, 10, date('M'), 0, 0, 'L');
-        // $pdf->Cell(9, 10, date('y'), 0, 0, 'R');
+        $pdf->SetTextColor(80,80,80);
+        $pdf->SetXY(132,93);
+        $pdf->Cell(5, 5, $serviceProviderDate, 0, 0, 'L');
+        
+        $pdf->SetFontSize('12');
+        $pdf->SetTextColor(80,80,80);
+        $pdf->SetXY(20, 108);
+        $pdf->Cell(10, 5, $talentName, 0, 0, 'L');
+        
+        $pdf->SetFontSize('12');
+        $pdf->SetTextColor(80,80,80);
+        $pdf->SetXY(88, 108);
+        $pdf->Cell(10, 5, $talentSignature, 0, 0, 'L');
+        
+        $pdf->SetFontSize('12');
+        $pdf->SetTextColor(80,80,80);
+        $pdf->SetXY(132, 108);
+        $pdf->Cell(5, 5, $talentDate, 0, 0, 'L');
+        // render PDF to browser
 
-        // the month
-        // $pdf->SetXY(160,122);
-        // $pdf->Cell(30, 10, date('M'), 1, 0, 'C');
+        $filename=$clientName.'_Cerebro_Business_SLA(Services).pdf';
 
-        // // the year, aligned to Left
-        // $pdf->SetXY(200,122);
-        // $pdf->Cell(20, 10, date('y'), 1, 0, 'L');
+        $pdf->Output($filename, "I");
 
-        // dd(gettype($pdf));
+        $newpdf = $pdf->Output("/var/www/html/pdf-edit/storage/app/SLA/".$filename, "F");
+
+        // $path = $request->file($pdfObj)->store('cerebro-sla/pdf', 's3');
+
+        $s3pdf = $pdf->Output($filename, "S");
+
+        // $path = $request->file($s3pdf)->store('pdf', 's3');
+
+        // Storage::disk('local')->put('SLA/Business_SLA(Services).pdf', $newpdf);
+
+        Storage::disk('s3')->put('pdf/'.$filename, $s3pdf);
+
+        // return view('NewPDF')->with('pdf',json_decode($pdf));
+        return view('NewPDF', compact('pdf'));
+    }
+
+    public function editBusinessSLA(Request $request)
+    {
+        $clientName = $request->clientName;
+        $serviceName = $request->serviceName;
+        $description = $request->description;
+        $duration = $request->duration;
+        $dateOfCommencement = $request->dateOfCommencement;
+        $amount = $request->amount;
+        $reviewSession = $request->reviewSession;
+        $serviceProviderSignature = $request->serviceProviderSignature;
+        $serviceProviderDate = $request->serviceProviderDate;
+        $clientSignature = $request->clientSignature;
+        $clientDate = $request->clientDate;
+       
+
+        $info = [
+            'clientName' => $clientName,
+            'serviceName' => $serviceName,
+            'description' => $description,
+            'duration' => $duration,
+            'dateOfCommencement' => $dateOfCommencement,
+            'amount' => $amount,
+            'reviewSession' => $reviewSession,
+            'serviceProviderSignature' => $serviceProviderSignature,
+            'serviceProviderDate' => $serviceProviderDate,
+            'clientSignature' => $clientSignature,
+            'clientDate' => $clientDate
+           
+        ];
+
+        // dd($info);
+
+        $pdf = new FPDI();
+
+        // Reference the PDF you want to use (use relative path)
+        $pagecount = $pdf->setSourceFile( 'Cerebro_Business_SLA.pdf' );
+        
+        // Import the first page from the PDF and add to dynamic PDF
+        $tpl = $pdf->importPage(1);
+        $pdf->AddPage();
+        
+        //Use the imported page as the template
+        $pdf->useTemplate($tpl);
+        
+        // // Set the default font to use
+        $pdf->SetFont('Helvetica');
+        
+        // // adding a Cell using:
+        // // $pdf->Cell( $width, $height, $text, $border, $fill, $align);
+        
+        // PAGE ONE
+        
+        $pdf->SetFontSize('12'); // set font size
+        $pdf->SetTextColor(80,80,80);
+        $pdf->SetXY(22, 195); // set the position of the box
+        $pdf->Cell(20, 5, $clientName, 0, 0, 'L'); // add the text, align to Center of cell
+        
+        
+        // PAGE TWO
+        // // note the reduction in font and different box position
+        
+        $tpl = $pdf->importPage(2);
+        $pdf->AddPage();
+        $pdf->useTemplate($tpl);
+        $pdf->SetFont('Helvetica');
+        
+        $pdf->SetFontSize('12');
+        $pdf->SetTextColor(80,80,80);
+        $pdf->SetXY(58, 40);
+        $pdf->Cell(10, 5, $serviceName, 0, 0, 'L');
+        
+        $pdf->SetFontSize('12');
+        $pdf->SetTextColor(80,80,80);
+        $pdf->SetXY(53, 47);
+        $pdf->Cell(5, 5, $description, 0,0, 'L');
+        
+        $pdf->SetFontSize('12');
+        $pdf->SetTextColor(80,80,80);
+        $pdf->SetXY(47, 55);
+        $pdf->Cell(5, 5, $duration, 0, 0, 'L');
+        $pdf->Cell(5, 5, 'days ', 0, 0, 'L');
+        
+        // $pdf->SetFontSize('12');
+        // $pdf->SetTextColor(80,80,80);
+        // $pdf->SetXY(92,63);
+        // $pdf->Cell(5, 5, date('d'), 0, 0, 'L');
+        // $pdf->Cell(5, 5, date('M'), 0, 0, 'L');
+        // $pdf->Cell(9, 5, date('y'), 0, 0, 'R');
+        
+        $pdf->SetFontSize('12');
+        $pdf->SetTextColor(80,80,80);
+        $pdf->SetXY(92,63);
+        $pdf->Cell(5, 5, $dateOfCommencement, 0, 0, 'L');
+        
+        $pdf->SetFontSize('12');
+        $pdf->SetTextColor(80,80,80);
+        $pdf->SetXY(70, 71);
+        $pdf->Cell(4, 5, 'N', 0, 0, 'L');
+        $pdf->Cell(5, 5, $amount, 0, 0, 'L');
+        
+        $pdf->SetFontSize('12');
+        $pdf->SetTextColor(80,80,80);
+        $pdf->SetXY(62, 78);
+        $pdf->Cell(5, 5, $reviewSession, 0, 0, 'L');
+        
+        //PAGE THREE
+        
+        $tpl = $pdf->importPage(3);
+        $pdf->AddPage();
+        $pdf->useTemplate($tpl);
+        $pdf->SetFont('Helvetica');
+        
+        
+        //PAGE FOUR
+        
+        $tpl = $pdf->importPage(4);
+        $pdf->AddPage();
+        $pdf->useTemplate($tpl);
+        $pdf->SetFont('Helvetica');
+        
+        //Page 5
+        
+        $tpl = $pdf->importPage(5);
+        $pdf->AddPage();
+        $pdf->useTemplate($tpl);
+        $pdf->SetFont('Helvetica');
+        
+        //Page 6
+        
+        $tpl = $pdf->importPage(6);
+        $pdf->AddPage();
+        $pdf->useTemplate($tpl);
+        $pdf->SetFont('Helvetica');
+        
+        
+        $pdf->SetFontSize('12');
+        $pdf->SetTextColor(80,80,80);
+        $pdf->SetXY(91, 43);
+        $pdf->Cell(10, 5, $serviceProviderSignature, 0, 0, 'L');
+        
+        $pdf->SetFontSize('12');
+        $pdf->SetTextColor(80,80,80);
+        $pdf->SetXY(134,43);
+        $pdf->Cell(5, 5, $serviceProviderDate, 0, 0, 'L');
+        
+        $pdf->SetFontSize('12');
+        $pdf->SetTextColor(80,80,80);
+        $pdf->SetXY(23, 63);
+        $pdf->Cell(10, 5, $clientName, 0, 0, 'L');
+        
+        $pdf->SetFontSize('12');
+        $pdf->SetTextColor(80,80,80);
+        $pdf->SetXY(91, 63);
+        $pdf->Cell(10, 5, $clientSignature, 0, 0, 'L');
+        
+        $pdf->SetFontSize('12');
+        $pdf->SetTextColor(80,80,80);
+        $pdf->SetXY(134, 63);
+        $pdf->Cell(5, 5, $clientDate, 0, 0, 'L');
+        
         // render PDF to browser
 
         $filename=$clientName.'_Cerebro_Business_SLA(Services).pdf';
@@ -240,7 +402,7 @@ class HomeController extends Controller
         // dd(env('AWS_DEFAULT_REGION'));
         // dd(config('filesystems.disks.s3'));
 
-        $path = $request->file('pdf')->store('pdf', 's3');
+        $path = $request->file('pdf')->store('cerebro/pdf', 's3');
         if($path){
             return back()->with('upload_success','file uploaded successfully');
         }
