@@ -85,7 +85,7 @@
                 </div>
 
                 <div class="col-md-6 col-xl-8">
-                <form method="post" action="{{ route('editPDF') }}" enctype="application/json">
+                <form method="post" action="{{ route('editPDF') }}" enctype="multipart/form-data">
                     {{ csrf_field() }}
                     <!-- fieldsets -->
                     <fieldset id="first">

@@ -36,8 +36,8 @@ class HomeController extends Controller
     public function s3show()
     {
         return view('S3test');
-    }   
-    
+    }
+
 
     public function editTalentSLA(Request $request)
     {
@@ -67,7 +67,7 @@ class HomeController extends Controller
             'serviceProviderDate' => $serviceProviderDate,
             'talentSignature' => $talentSignature,
             'talentDate' => $talentDate
-      
+
 
         ];
 
@@ -78,116 +78,124 @@ class HomeController extends Controller
 
         // Reference the PDF you want to use (use relative path)
         $pagecount = $pdf->setSourceFile( 'Cerebro_Talent_SLA.pdf' );
-        
+
         // Import the first page from the PDF and add to dynamic PDF
         $tpl = $pdf->importPage(1);
         $pdf->AddPage();
-        
+
         // Use the imported page as the template
         $pdf->useTemplate($tpl);
-        
+
         // // Set the default font to use
         $pdf->SetFont('Helvetica');
-        
+
         // // adding a Cell using:
         // // $pdf->Cell( $width, $height, $text, $border, $fill, $align);
-        
+
         // // PAGE ONE
-        
+
         $pdf->SetFontSize('12'); // set font size
         $pdf->SetTextColor(80,80,80);
         $pdf->SetXY(19, 194); // set the position of the box
         $pdf->Cell(15, 5, $talentName, 0, 0, 'L'); // add the text, align to Center of cell
-        
-        
+
+
         $pdf->SetFontSize('12'); // set font size
         $pdf->SetTextColor(80,80,80);
         $pdf->SetXY(46, 211.5); // set the position of the box
         $pdf->Cell(10, 5, $clientName, 0, 0, 'L'); // add the text, align to Center of cell
-        
+
         $pdf->SetFontSize('12'); // set font size
         $pdf->SetTextColor(80,80,80);
         $pdf->SetXY(55, 261.5); // set the position of the box
         $pdf->Cell(10, 5, $serviceName, 0, 0, 'L');// add the text, align to Center of cell
-        
+
         // // PAGE TWO
         // // // note the reduction in font and different box position
-        
+
         $tpl = $pdf->importPage(2);
         $pdf->AddPage();
         $pdf->useTemplate($tpl);
         $pdf->SetFont('Helvetica');
-        
+
         $pdf->SetFontSize('12');
         $pdf->SetTextColor(80,80,80);
         $pdf->SetXY(51, 27);
         $pdf->Cell(5, 5, $description, 0,0, 'L');
-        
+
         $pdf->SetFontSize('12');
         $pdf->SetTextColor(80,80,80);
         $pdf->SetXY(46, 34.5);
         $pdf->Cell(5, 5, $duration, 0, 0, 'L');
         $pdf->Cell(5, 5, 'days ', 0, 0, 'L');
-        
+
         $pdf->SetFontSize('12');
         $pdf->SetTextColor(80,80,80);
         $pdf->SetXY(89, 42);
         $pdf->Cell(5, 5, $dateOfCommencement, 0, 0, 'L');
-        
+
         $pdf->SetFontSize('12');
         $pdf->SetTextColor(80,80,80);
         $pdf->SetXY(67, 50);
         $pdf->Cell(4, 5, 'N', 0, 0, 'L');
         $pdf->Cell(5, 5, $amount, 0, 0, 'L');
-        
+
         // $pdf->SetFontSize('12');
         // $pdf->SetTextColor(80,80,80);
         // $pdf->SetXY(62, 78);
         // $pdf->Cell(5, 5, '6', 0, 0, 'L');
-        
+
         // //PAGE THREE
-        
+
         $tpl = $pdf->importPage(3);
         $pdf->AddPage();
         $pdf->useTemplate($tpl);
         $pdf->SetFont('Helvetica');
-        
-        
+
+
         // //PAGE FOUR
-        
+
         $tpl = $pdf->importPage(4);
         $pdf->AddPage();
         $pdf->useTemplate($tpl);
         $pdf->SetFont('Helvetica');
-        
+
         // //Page 5
-        
+
         $tpl = $pdf->importPage(5);
         $pdf->AddPage();
         $pdf->useTemplate($tpl);
         $pdf->SetFont('Helvetica');
-        
-        
-        $pdf->SetFontSize('12');
-        $pdf->SetTextColor(80,80,80);
-        $pdf->SetXY(88, 93);
-        $pdf->Cell(10, 5, $serviceProviderSignature, 0, 0, 'L');
-        
+
+
+        // $pdf->SetFontSize('12');
+        // $pdf->SetTextColor(80,80,80);
+        // $pdf->SetXY(88, 93);
+        // $pdf->Cell(10, 5, $serviceProviderSignature, 0, 0, 'L');
+
+        // Cerebro Signature
+        // $pdf->Image('https://res.cloudinary.com/ekoicentre/image/upload/v1591110373/Cerebro/python_vu340t.png',95,95,25,0,'PNG');
+        $pdf->Image($serviceProviderSignature, 95, 95, 25, 0, 'PNG');
+
         $pdf->SetFontSize('12');
         $pdf->SetTextColor(80,80,80);
         $pdf->SetXY(132,93);
         $pdf->Cell(5, 5, $serviceProviderDate, 0, 0, 'L');
-        
+
         $pdf->SetFontSize('12');
         $pdf->SetTextColor(80,80,80);
         $pdf->SetXY(20, 108);
         $pdf->Cell(10, 5, $talentName, 0, 0, 'L');
-        
-        $pdf->SetFontSize('12');
-        $pdf->SetTextColor(80,80,80);
-        $pdf->SetXY(88, 108);
-        $pdf->Cell(10, 5, $talentSignature, 0, 0, 'L');
-        
+
+        // $pdf->SetFontSize('12');
+        // $pdf->SetTextColor(80,80,80);
+        // $pdf->SetXY(88, 108);
+        // $pdf->Cell(10, 5, $talentSignature, 0, 0, 'L');
+
+        //Client | Talent Signature
+        // $pdf->Image('https://res.cloudinary.com/ekoicentre/image/upload/v1591110373/Cerebro/python_vu340t.png',95,112,25,0,'PNG');
+        $pdf->Image($talentSignature, 95, 112, 25, 0, 'PNG');
+
         $pdf->SetFontSize('12');
         $pdf->SetTextColor(80,80,80);
         $pdf->SetXY(132, 108);
@@ -227,7 +235,7 @@ class HomeController extends Controller
         $serviceProviderDate = $request->serviceProviderDate;
         $clientSignature = $request->clientSignature;
         $clientDate = $request->clientDate;
-       
+
 
         $info = [
             'clientName' => $clientName,
@@ -241,7 +249,7 @@ class HomeController extends Controller
             'serviceProviderDate' => $serviceProviderDate,
             'clientSignature' => $clientSignature,
             'clientDate' => $clientDate
-           
+
         ];
 
         // dd($info);
@@ -250,130 +258,138 @@ class HomeController extends Controller
 
         // Reference the PDF you want to use (use relative path)
         $pagecount = $pdf->setSourceFile( 'Cerebro_Business_SLA.pdf' );
-        
+
         // Import the first page from the PDF and add to dynamic PDF
         $tpl = $pdf->importPage(1);
         $pdf->AddPage();
-        
+
         //Use the imported page as the template
         $pdf->useTemplate($tpl);
-        
+
         // // Set the default font to use
         $pdf->SetFont('Helvetica');
-        
+
         // // adding a Cell using:
         // // $pdf->Cell( $width, $height, $text, $border, $fill, $align);
-        
+
         // PAGE ONE
-        
+
         $pdf->SetFontSize('12'); // set font size
         $pdf->SetTextColor(80,80,80);
         $pdf->SetXY(22, 195); // set the position of the box
         $pdf->Cell(20, 5, $clientName, 0, 0, 'L'); // add the text, align to Center of cell
-        
-        
+
+
         // PAGE TWO
         // // note the reduction in font and different box position
-        
+
         $tpl = $pdf->importPage(2);
         $pdf->AddPage();
         $pdf->useTemplate($tpl);
         $pdf->SetFont('Helvetica');
-        
+
         $pdf->SetFontSize('12');
         $pdf->SetTextColor(80,80,80);
         $pdf->SetXY(58, 40);
         $pdf->Cell(10, 5, $serviceName, 0, 0, 'L');
-        
+
         $pdf->SetFontSize('12');
         $pdf->SetTextColor(80,80,80);
         $pdf->SetXY(53, 47);
         $pdf->Cell(5, 5, $description, 0,0, 'L');
-        
+
         $pdf->SetFontSize('12');
         $pdf->SetTextColor(80,80,80);
         $pdf->SetXY(47, 55);
         $pdf->Cell(5, 5, $duration, 0, 0, 'L');
         $pdf->Cell(5, 5, 'days ', 0, 0, 'L');
-        
+
         // $pdf->SetFontSize('12');
         // $pdf->SetTextColor(80,80,80);
         // $pdf->SetXY(92,63);
         // $pdf->Cell(5, 5, date('d'), 0, 0, 'L');
         // $pdf->Cell(5, 5, date('M'), 0, 0, 'L');
         // $pdf->Cell(9, 5, date('y'), 0, 0, 'R');
-        
+
         $pdf->SetFontSize('12');
         $pdf->SetTextColor(80,80,80);
         $pdf->SetXY(92,63);
         $pdf->Cell(5, 5, $dateOfCommencement, 0, 0, 'L');
-        
+
         $pdf->SetFontSize('12');
         $pdf->SetTextColor(80,80,80);
         $pdf->SetXY(70, 71);
         $pdf->Cell(4, 5, 'N', 0, 0, 'L');
         $pdf->Cell(5, 5, $amount, 0, 0, 'L');
-        
+
         $pdf->SetFontSize('12');
         $pdf->SetTextColor(80,80,80);
         $pdf->SetXY(62, 78);
         $pdf->Cell(5, 5, $reviewSession, 0, 0, 'L');
-        
+
         //PAGE THREE
-        
+
         $tpl = $pdf->importPage(3);
         $pdf->AddPage();
         $pdf->useTemplate($tpl);
         $pdf->SetFont('Helvetica');
-        
-        
+
+
         //PAGE FOUR
-        
+
         $tpl = $pdf->importPage(4);
         $pdf->AddPage();
         $pdf->useTemplate($tpl);
         $pdf->SetFont('Helvetica');
-        
+
         //Page 5
-        
+
         $tpl = $pdf->importPage(5);
         $pdf->AddPage();
         $pdf->useTemplate($tpl);
         $pdf->SetFont('Helvetica');
-        
+
         //Page 6
-        
+
         $tpl = $pdf->importPage(6);
         $pdf->AddPage();
         $pdf->useTemplate($tpl);
         $pdf->SetFont('Helvetica');
-        
-        
-        $pdf->SetFontSize('12');
-        $pdf->SetTextColor(80,80,80);
-        $pdf->SetXY(91, 43);
-        $pdf->Cell(10, 5, $serviceProviderSignature, 0, 0, 'L');
-        
+
+
+        // $pdf->SetFontSize('12');
+        // $pdf->SetTextColor(80,80,80);
+        // $pdf->SetXY(91, 43);
+        // $pdf->Cell(10, 5, $serviceProviderSignature, 0, 0, 'L');
+
+        // Cerebro Signature
+        // $pdf->Image('https://res.cloudinary.com/ekoicentre/image/upload/v1591110373/Cerebro/python_vu340t.png',95,95,25,0,'PNG');
+        $pdf->Image($serviceProviderSignature, 95, 95, 25, 0, 'PNG');
+
         $pdf->SetFontSize('12');
         $pdf->SetTextColor(80,80,80);
         $pdf->SetXY(134,43);
         $pdf->Cell(5, 5, $serviceProviderDate, 0, 0, 'L');
-        
+
         $pdf->SetFontSize('12');
         $pdf->SetTextColor(80,80,80);
         $pdf->SetXY(23, 63);
         $pdf->Cell(10, 5, $clientName, 0, 0, 'L');
-        
-        $pdf->SetFontSize('12');
-        $pdf->SetTextColor(80,80,80);
-        $pdf->SetXY(91, 63);
-        $pdf->Cell(10, 5, $clientSignature, 0, 0, 'L');
-        
+
+        // $pdf->SetFontSize('12');
+        // $pdf->SetTextColor(80,80,80);
+        // $pdf->SetXY(91, 63);
+        // $pdf->Cell(10, 5, $clientSignature, 0, 0, 'L');
+
+        //Client | Talent Signature
+        // $pdf->Image('https://res.cloudinary.com/ekoicentre/image/upload/v1591110373/Cerebro/python_vu340t.png',95,112,25,0,'PNG');
+        $pdf->Image($clientSignature, 95, 112, 25, 0, 'PNG');
+
         $pdf->SetFontSize('12');
         $pdf->SetTextColor(80,80,80);
         $pdf->SetXY(134, 63);
         $pdf->Cell(5, 5, $clientDate, 0, 0, 'L');
-        
+
         // render PDF to browser
 
         $filename=$clientName.'_Cerebro_Business_SLA(Services).pdf';
