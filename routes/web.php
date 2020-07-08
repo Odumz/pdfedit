@@ -24,13 +24,17 @@ use Illuminate\Support\Facades\Route;
 
     Route::get('/home', 'HomeController@index')->name('home');
 
-    Route::post('/editBusinessSLA', 'HomeController@editBuisnessSLA')->name('editBusinessSLA');
+    Route::get('/editPDF', 'HomeController@pdf')->name('editPDF');
+
+    Route::post('/editBusinessSLA', 'HomeController@editBusinessSLA')->name('editBusinessSLA');
 
     Route::post('/editTalentSLA', 'HomeController@editTalentSLA')->name('editTalentSLA');
 
     Route::post('/s3-upload', 'HomeController@s3upload')->name('s3test');
 
     Route::get('/pdf', 'HomeController@pdf')->name('pdf');
+
+    // Route::get('/editpdf', 'HomeController@pdf')->name('editpdf');
 
     Route::get('/s3-show', 'HomeController@s3show')->name('pdf');
 // });
