@@ -57,9 +57,9 @@ class HomeController extends Controller
         $signatureURL = $request->signatureURL;
 
 
-        $timezone = date_default_timezone_get();
-        date_default_timezone_set($timezone);
-        // date_default_timezone_set('Africa/Lagos');
+        // $timezone = date_default_timezone_get();
+        // date_default_timezone_set($timezone);
+        date_default_timezone_set('Africa/Lagos');
         $signDate = date('d-m-Y');
 
 
