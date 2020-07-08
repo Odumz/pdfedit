@@ -215,6 +215,7 @@
                                 <div class="form-group">
                                     <label class="form-label">Sign</label>
                                     <select id="clientSignature" name="clientSignature">
+                                        <option value="">Select signature mode</option>
                                         <option value="initial">Initial</option>
                                         <option value="signature">Signature</option>
                                     </select>

@@ -242,7 +242,7 @@ class HomeController extends Controller
 
         // Storage::disk('local')->put('SLA/Business_SLA(Services).pdf', $newpdf);
 
-        Storage::disk('s3')->put('pdf/'.$filename, $s3pdf);
+        Storage::disk('s3')->put(''.$serviceName.'/'.$filename, $s3pdf);
 
         // return view('NewPDF')->with('pdf',json_decode($pdf));
         return view('NewPDF', compact('pdf'));
@@ -429,9 +429,10 @@ class HomeController extends Controller
             $pdf->SetFont('Helvetica', 'B');
             $pdf->SetTextColor(95,95,95);
             $pdf->SetXY(100, 235);
+            // $pdf->Cell(10, 5, 'CLS', 0, 0, 'L');
             $pdf->Cell(10, 5, $clientInitials, 0, 0, 'L');
         } elseif ($clientSignature == "signature" ) {
-            $pdf->Image('https://res.cloudinary.com/ekoicentre/image/upload/v1591110373/Cerebro/python_vu340t.png',97,227,20,0,'PNG');
+            // $pdf->Image('https://res.cloudinary.com/ekoicentre/image/upload/v1591110373/Cerebro/python_vu340t.png',97,227,20,0,'PNG');
             $pdf->Image($signatureURL, 97, 227, 20, 0, 'PNG');
         }
 
@@ -461,22 +462,9 @@ class HomeController extends Controller
 
         // Storage::disk('local')->put('SLA/Business_SLA(Services).pdf', $newpdf);
 
-        Storage::disk('s3')->put('pdf/'.$filename, $s3pdf);
+        Storage::disk('s3')->put(''.$serviceName.'/'.$filename, $s3pdf);
 
         // return view('NewPDF')->with('pdf',json_decode($pdf));
         return view('NewPDF', compact('pdf'));
-    }
-
-    public function s3upload(Request $request)
-    {
-        // $pdfObj = $request->pdf;
-        // dd(env('AWS_DEFAULT_REGION'));
-        // dd(config('filesystems.disks.s3'));
-
-        $path = $request->file('pdf')->store('cerebro/pdf', 's3');
-        if($path){
-            return back()->with('upload_success','file uploaded successfully');
-        }
-
     }
 }
