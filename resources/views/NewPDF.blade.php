@@ -80,11 +80,11 @@
             @endif
 
             <div class="content">
-                @foreach ($pdf as $item)
+                {{-- @foreach ($url as $item)
                     <p> {{$item}} </p>
-                @endforeach
+                @endforeach --}}
 
-                {{$pdf}}
+                {{$url}}
 
                 <div class="links">
                     <a href="/editBusinessSLA">Start</a>

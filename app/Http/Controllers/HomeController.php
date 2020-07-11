@@ -188,7 +188,8 @@ class HomeController extends Controller
 
         // Cerebro Signature
         // $pdf->Image('https://res.cloudinary.com/ekoicentre/image/upload/v1591110373/Cerebro/python_vu340t.png',97,110,20,0,'PNG');
-        $pdf->Image($serviceProviderSignature, 97, 110, 20, 0, 'PNG');
+        $pdf->Image('https://res.cloudinary.com/dwpu7jpku/image/upload/v1594234198/signature_tjv42q.png',97,115,27,0,'PNG');
+        // $pdf->Image($serviceProviderSignature, 97, 115, 27, 0, 'PNG');
 
         $pdf->SetFontSize('11.5');
         $pdf->SetTextColor(95,95,95);
@@ -215,8 +216,8 @@ class HomeController extends Controller
             // $pdf->Cell(10, 5, 'TLS', 0, 0, 'L');
             $pdf->Cell(10, 5, $talentInitials, 0, 0, 'L');
         } elseif ($talentSignature == "signature" ) {
-            // $pdf->Image('https://res.cloudinary.com/ekoicentre/image/upload/v1591110373/Cerebro/python_vu340t.png',97,128,20,0,'PNG');
-            $pdf->Image($signatureURL, 97, 128, 20, 0, 'PNG');
+            $pdf->Image('https://res.cloudinary.com/dwpu7jpku/image/upload/v1594234198/signature_tjv42q.png',97,132,27,0,'PNG');
+            // $pdf->Image($signatureURL, 97, 132, 27, 0, 'PNG');
         }
 
         // talent date
@@ -230,22 +231,28 @@ class HomeController extends Controller
 
         $filename=$talentName.'_Cerebro_Talent_SLA.pdf';
 
-        $pdf->Output($filename, "I");
+        // $pdf->Output($filename, "I");
 
-        $newpdf = $pdf->Output("/var/www/html/pdf-edit/storage/app/SLA/".$filename, "F");
+        //store pdf on local
+        // $newpdf = $pdf->Output("/var/www/html/pdf-edit/storage/app/SLA/".$filename, "F");
 
         // $path = $request->file($pdfObj)->store('cerebro-sla/pdf', 's3');
 
+        // write pdf to string
         $s3pdf = $pdf->Output($filename, "S");
 
         // $path = $request->file($s3pdf)->store('pdf', 's3');
 
         // Storage::disk('local')->put('SLA/Business_SLA(Services).pdf', $newpdf);
 
+        // store pdf string in s3 bucket
         Storage::disk('s3')->put(''.$serviceName.'/'.$filename, $s3pdf);
 
+        // returns url to object in s3 bucket
+        $url = Storage::url(''.$serviceName.'/'.$filename);
+
         // return view('NewPDF')->with('pdf',json_decode($pdf));
-        return view('NewPDF', compact('pdf'));
+        return $url;
     }
 
     public function editBusinessSLA(Request $request)
@@ -402,7 +409,8 @@ class HomeController extends Controller
 
         // service provider Signature
         // $pdf->Image('https://res.cloudinary.com/ekoicentre/image/upload/v1591110373/Cerebro/python_vu340t.png',97,208,20,0,'PNG');
-        $pdf->Image($serviceProviderSignature, 97, 208, 20, 0, 'PNG');
+        $pdf->Image('https://res.cloudinary.com/dwpu7jpku/image/upload/v1594234198/signature_tjv42q.png',97,212,27,0,'PNG');
+        // $pdf->Image($serviceProviderSignature, 99, 212, 27, 0, 'PNG');
 
         // service provider date
         $pdf->SetFontSize('11.5');
@@ -433,7 +441,8 @@ class HomeController extends Controller
             $pdf->Cell(10, 5, $clientInitials, 0, 0, 'L');
         } elseif ($clientSignature == "signature" ) {
             // $pdf->Image('https://res.cloudinary.com/ekoicentre/image/upload/v1591110373/Cerebro/python_vu340t.png',97,227,20,0,'PNG');
-            $pdf->Image($signatureURL, 97, 227, 20, 0, 'PNG');
+            $pdf->Image('https://res.cloudinary.com/dwpu7jpku/image/upload/v1594234198/signature_tjv42q.png',97,230,27,0,'PNG');
+            // $pdf->Image($signatureURL, 99, 230, 27, 0, 'PNG');
         }
 
         // $pdf->Image('https://res.cloudinary.com/ekoicentre/image/upload/v1591110373/Cerebro/python_vu340t.png',95,112,25,0,'PNG');
@@ -450,9 +459,9 @@ class HomeController extends Controller
 
         $filename=$clientName.'_Cerebro_Business_SLA.pdf';
 
-        $pdf->Output($filename, "I");
+        // $pdf->Output($filename, "I");
 
-        $newpdf = $pdf->Output("/var/www/html/pdf-edit/storage/app/SLA/".$filename, "F");
+        // $newpdf = $pdf->Output("/var/www/html/pdf-edit/storage/app/SLA/".$filename, "F");
 
         // $path = $request->file($pdfObj)->store('cerebro-sla/pdf', 's3');
 
@@ -462,9 +471,13 @@ class HomeController extends Controller
 
         // Storage::disk('local')->put('SLA/Business_SLA(Services).pdf', $newpdf);
 
+        // stores pdf to s3 bucket
         Storage::disk('s3')->put(''.$serviceName.'/'.$filename, $s3pdf);
 
+        // returns pdf url
+        $url = Storage::url(''.$serviceName.'/'.$filename);
+
         // return view('NewPDF')->with('pdf',json_decode($pdf));
-        return view('NewPDF', compact('pdf'));
+        return $url;
     }
 }
