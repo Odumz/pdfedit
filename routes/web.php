@@ -30,9 +30,15 @@ use Illuminate\Support\Facades\Route;
 
     Route::post('/editTalentSLA', 'HomeController@editTalentSLA')->name('editTalentSLA');
 
+    Route::post('/signTalentSLA', 'HomeController@signTalentSLA')->name('signTalentSLA');
+
+    Route::post('/signBusinessSLA', 'HomeController@signBusinessSLA')->name('signBusinessSLA');
+
     Route::post('/s3-upload', 'HomeController@s3upload')->name('s3test');
 
     Route::get('/pdf', 'HomeController@pdf')->name('pdf');
+
+    Route::get('/signSLA', 'HomeController@signSLA')->name('signSLA');
 
     // Route::get('/editpdf', 'HomeController@pdf')->name('editpdf');
 

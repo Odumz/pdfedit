@@ -168,7 +168,7 @@
 
 
         <div class="col-md-6 col-xl-8">
-            <form method="post" action="{{ route('editBusinessSLA') }}" enctype="multipart/form-data">
+            <form method="post" action="{{ route('signBusinessSLA') }}" enctype="multipart/form-data">
                 {{ csrf_field() }}
                 <!-- fieldsets -->
                 <fieldset id="first">
